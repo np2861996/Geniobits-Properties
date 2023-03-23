@@ -1,8 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+# Geniobits Properties React App
 
 ## a real estate listings web application using React. The real estate listings should allow users to view and search for properties for sale or rent. The following features are required:
 
