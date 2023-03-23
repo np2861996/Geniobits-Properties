@@ -1,6 +1,6 @@
 # Geniobits Properties React App
 
-## a real estate listings web application using React. The real estate listings should allow users to view and search for properties for sale or rent. The following features are required:
+## A real estate listings web application using React. The real estate listings should allow users to view and search for properties for sale or rent. The following features are required:
 
 User Authentication: Users should be able to sign up, log in, and log out.
 
