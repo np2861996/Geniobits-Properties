@@ -4,67 +4,125 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+## a real estate listings web application using React. The real estate listings should allow users to view and search for properties for sale or rent. The following features are required:
 
-### `npm start`
+User Authentication: Users should be able to sign up, log in, and log out.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Property Listings: A list of properties with their details (address, price, type, images, etc.).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Property Search: Users should be able to search for properties based on different criteria (location, price, type, etc.).
 
-### `npm test`
+Property Details: Users should be able to view the details of a property, including its description, images, and location.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Contact Agent: Users should be able to contact the agent responsible for the property by sending an email.
 
-### `npm run build`
+User Dashboard: Users should be able to view a list of their saved properties and view their contact history.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Highlights
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## used firebase for Registration, Login, and Logout.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const loginUser = (e) => {
+        e.preventDefault();
 
-### `npm run eject`
+        setIsLoading(true);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                setIsLoading(false)
+                toast.success("login successfull");
+                navigate("/");
+            })
+            .catch((error) => {
+                toast.error(error.message);
+                setIsLoading(false)
+            });
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    //when user try to login with google
+    const signInWithGoogle = (e) => {
+        e.preventDefault();
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                toast.success("login successfull");
+                navigate("/");
+            }).catch((error) => {
+                // Handle Errors here.
+                toast.error(error.message);
+            });
+    }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## used redux for khow user is logged in or logout
 
-## Learn More
+const authSlice = createSlice({
+    name: "auth",
+    initialState,
+    reducers: {
+        SET_ACTIVE_USER: (state, action) => {
+            const { email, userName, userId } = action.payload;
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+            state.isLoggedIn = true;
+            state.email = email;
+            state.userName = userName;
+            state.userId = userId
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+        },
 
-### Code Splitting
+        REMOVE_ACTIVE_USER: (state, action) => {
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+            state.isLoggedIn = false;
+            state.email = null;
+            state.userName = null;
+            state.userId = null;
 
-### Analyzing the Bundle Size
+        }
+    }
+}) 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## used axios for get data from api
+try {
+    //await respose
+    const response = await axios.get(
+      "https://api.apify.com/v2/datasets/6pFyYyGBdJg2387328382CkM7BM/items?&clean=true&format=json"
+    );
+    setListings(response.data);
+  } catch (error) {
+    //error
+    setError(error.message);
+  }
+  
+##  with use of filter get data data on different condition
 
-### Making a Progressive Web App
+  const handleSearch = () => {
+    let filteredListings = listings.filter((listing) => {
+      if (city && listing.address.city !== city) return false;
+      if (state && listing.address.state !== state) return false;
+      if (minPrice && listing.price < minPrice) return false;
+      if (maxPrice && listing.price > maxPrice) return false;
+      if (homeStatus && listing.homeStatus !== homeStatus) return false;
+      if (keyword && !listing.address.street.toLowerCase().includes(keyword.toLowerCase())) return false;
+      return true;
+    });
+    setFilteredData(filteredListings);
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## used smtpjs.com for send email
 
-### Advanced Configuration
+## stored contact history in local storage and showed
+ if (window.Email) {
+      let array = JSON.parse(localStorage.getItem('contacthistory') || '[]');
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+      //alert(array);
+      array.push(formProps);
+      localStorage.setItem('contacthistory', JSON.stringify(array))
+      SetFormState({})
+    } 
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
