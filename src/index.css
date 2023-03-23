@@ -5,9 +5,90 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
+    color: #fff;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.container{
+  min-height:100vh;  
+}
+button.btn.btn-primary,a.btn.btn-primary {
+  background-color: #17a2b8;
+  border: #17a2b8;
+}
+
+div#loader div {
+  height: 100vh;
+  display: flex;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  min-height: 100vh;
+  text-align: center;
+  background-color: #fff;
+  position: absolute;
+  z-index: 9;
+  /* left: 50%; */
+  /* top: 50%; */
+}
+div#loader div img {
+  z-index: 9;
+   background-color: green;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+/* Search */
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-form select,
+.search-form input[type="number"],
+.search-form button {
+  margin: 0 5px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.search-form select {
+  width: 180px;
+}
+
+.search-form button {
+  background-color: #17a2b8;
+  color: #fff;
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+/* propery cards */
+.card-body {
+  border: 1px solid #17a2b8;
+  padding: 10px;
+}
+
+.card-body .btn-primary {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.card-body button {
+  margin-left: 10px;
+}
+.contact-history .card-header, .contact-history .card-body {
+  background-color: #000;
 }
